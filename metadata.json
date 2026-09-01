@@ -1,0 +1,6 @@
+{
+  "name": "COSRX Snail Mucin 96 UAE",
+  "description": "Official product landing page, skin suitability guide, and Amazon.ae buying portal for COSRX Advanced Snail 96 Mucin Power Essence in the UAE.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

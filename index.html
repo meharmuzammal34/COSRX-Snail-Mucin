@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      (function() {
+        try {
+          var store = window.fetch;
+          var targets = [
+            typeof window !== 'undefined' ? window : null,
+            typeof Window !== 'undefined' && Window.prototype ? Window.prototype : null,
+            typeof globalThis !== 'undefined' ? globalThis : null,
+            typeof self !== 'undefined' ? self : null
+          ];
+          targets.forEach(function(target) {
+            if (!target) return;
+            try {
+              Object.defineProperty(target, 'fetch', {
+                get: function() { return store; },
+                set: function(v) { store = v; },
+                configurable: true,
+                enumerable: true
+              });
+            } catch (e) {}
+          });
+        } catch (e) {}
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>دليل وشراء خلاصة الحلزون كوسركس COSRX Snail Mucin UAE | مراجعة شاملة وأفضل سعر أمازون الإمارات</title>
+    <meta name="description" content="دليل الشراء والمراجعة الشاملة لخلاصة الحلزون كوسركس COSRX Advanced Snail 96 في الإمارات. فوائد ترطيب البشرة الجافة والتالفة بالتكييف وأفضل عروض أمازون الإمارات." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-amber-50/30 text-stone-800 antialiased selection:bg-amber-200 selection:text-amber-900">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
