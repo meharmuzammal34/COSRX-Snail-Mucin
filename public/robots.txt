@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cosrx-snail-mucin.netlify.app/sitemap.xml

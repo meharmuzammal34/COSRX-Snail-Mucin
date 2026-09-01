@@ -2,90 +2,115 @@ import { CORE_PRODUCT_DATA } from '../data/cosrxData';
 import { ASSETS } from '../assets/images';
 import { ClusterArticle, TRUST_PAGES } from '../data/clusterArticlesData';
 
+const BASE_URL = 'https://cosrx-snail-mucin.netlify.app';
+
+/**
+ * Helper to get or create a meta tag with specific attribute
+ */
+function setMetaTag(attrName: 'name' | 'property', attrValue: string, content: string) {
+  let el = document.querySelector(`meta[${attrName}="${attrValue}"]`);
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute(attrName, attrValue);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', content);
+}
+
+/**
+ * Updates all SEO tags (Title, Meta, Canonical, Open Graph, Twitter Cards, Schema.org)
+ */
 export function updateMetaAndSchema(
   path: string,
   article?: ClusterArticle,
   trustSlug?: string
 ) {
-  const baseUrl = 'https://cosrxsnailuae.com';
-  const fullUrl = `${baseUrl}${path}`;
+  // Clean path: remove query parameters and hashes, remove leading/trailing slashes
+  const cleanPath = path.split('?')[0].split('#')[0].replace(/^\/+|\/+$/g, '');
+  const isHome = cleanPath === '' || cleanPath === 'home';
+  const canonicalUrl = isHome ? `${BASE_URL}/` : `${BASE_URL}/${cleanPath}`;
 
+  // Default Homepage SEO details
   let title = 'أفضل خلاصة الحلزون COSRX في الإمارات | السعر والفوائد وعروض أمازون';
-  let description = 'دليل وشراء سيروم خلاصة الحلزون الأصلي COSRX Advanced Snail 96 Mucin Power Essence في الإمارات. حل جفاف التكييف، المكونات، طريقة الاستخدام، والسعر على أمازون الإمارات.';
+  let description =
+    'دليل وشراء سيروم خلاصة الحلزون الأصلي COSRX Advanced Snail 96 Mucin Power Essence في الإمارات. تعرف على الفوائد والمكونات وطريقة الاستخدام والسعر والعروض على أمازون الإمارات.';
+  let ogType = 'website';
+  let ogImage = ASSETS.cosrxProduct;
 
   if (article) {
     title = article.metaTitleAr;
     description = article.metaDescAr;
+    ogType = 'article';
+    ogImage = ASSETS.cosrxProduct;
   } else if (trustSlug && TRUST_PAGES[trustSlug]) {
     title = TRUST_PAGES[trustSlug].metaTitleAr;
     description = TRUST_PAGES[trustSlug].metaDescAr;
+    ogType = 'website';
   }
 
-  // Update title
+  // 1. Title Tag
   document.title = title;
 
-  // Update or create Meta Description
-  let metaDescEl = document.querySelector('meta[name="description"]');
-  if (!metaDescEl) {
-    metaDescEl = document.createElement('meta');
-    metaDescEl.setAttribute('name', 'description');
-    document.head.appendChild(metaDescEl);
-  }
-  metaDescEl.setAttribute('content', description);
+  // 2. Standard Meta Tags
+  setMetaTag('name', 'description', description);
+  setMetaTag('name', 'robots', 'index, follow');
 
-  // Update or create OpenGraph Title
-  let ogTitleEl = document.querySelector('meta[property="og:title"]');
-  if (!ogTitleEl) {
-    ogTitleEl = document.createElement('meta');
-    ogTitleEl.setAttribute('property', 'og:title');
-    document.head.appendChild(ogTitleEl);
-  }
-  ogTitleEl.setAttribute('content', title);
-
-  // Update or create OpenGraph Description
-  let ogDescEl = document.querySelector('meta[property="og:description"]');
-  if (!ogDescEl) {
-    ogDescEl = document.createElement('meta');
-    ogDescEl.setAttribute('property', 'og:description');
-    document.head.appendChild(ogDescEl);
-  }
-  ogDescEl.setAttribute('content', description);
-
-  // Canonical Link
+  // 3. Ensure Single Canonical Link
   let canonicalEl = document.querySelector('link[rel="canonical"]');
   if (!canonicalEl) {
     canonicalEl = document.createElement('link');
     canonicalEl.setAttribute('rel', 'canonical');
     document.head.appendChild(canonicalEl);
   }
-  canonicalEl.setAttribute('href', fullUrl);
+  canonicalEl.setAttribute('href', canonicalUrl);
 
-  // Generate Schemas
+  // 4. Open Graph Metadata
+  setMetaTag('property', 'og:site_name', 'COSRX Snail Mucin UAE');
+  setMetaTag('property', 'og:type', ogType);
+  setMetaTag('property', 'og:title', title);
+  setMetaTag('property', 'og:description', description);
+  setMetaTag('property', 'og:url', canonicalUrl);
+  setMetaTag('property', 'og:image', ogImage);
+  setMetaTag('property', 'og:locale', 'ar_AE');
+
+  // 5. Twitter / X Card Metadata
+  setMetaTag('name', 'twitter:card', 'summary_large_image');
+  setMetaTag('name', 'twitter:title', title);
+  setMetaTag('name', 'twitter:description', description);
+  setMetaTag('name', 'twitter:image', ogImage);
+  setMetaTag('name', 'twitter:url', canonicalUrl);
+
+  // 6. Generate JSON-LD Structured Data
   const schemas: object[] = [
-    // 1. Organization Schema
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      name: 'COSRX Snail Mucin UAE Guide',
-      url: baseUrl,
-      logo: `${baseUrl}/icon.png`,
-      description: 'دليل مراجعة وتقييم وشراء سيروم خلاصة الحلزون كوسركس الأصلي في الإمارات العربية المتحدة.',
-    },
-    // 2. WebSite Schema
+    // WebSite Schema
     {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: 'COSRX Snail UAE',
-      url: baseUrl,
+      alternateName: 'COSRX Snail Mucin UAE Guide',
+      url: `${BASE_URL}/`,
       inLanguage: 'ar-AE',
     },
-    // 3. Product Schema for COSRX Snail 96
+    // Organization Schema
     {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'COSRX Snail Mucin UAE Guide',
+      url: `${BASE_URL}/`,
+      logo: `${BASE_URL}/icon.png`,
+      description: 'دليل مراجعة وتقييم وشراء سيروم خلاصة الحلزون كوسركس الأصلي في دولة الإمارات العربية المتحدة.',
+    },
+  ];
+
+  // Product Schema (for homepage & relevant reviews)
+  if (isHome || (article && article.slug.includes('snail-96'))) {
+    schemas.push({
       '@context': 'https://schema.org',
       '@type': 'Product',
       name: CORE_PRODUCT_DATA.nameAr,
       image: [ASSETS.cosrxProduct],
       description: CORE_PRODUCT_DATA.benefitsAr.join('، '),
+      sku: 'COSRX-SNAIL-96-100ML',
       brand: {
         '@type': 'Brand',
         name: 'COSRX',
@@ -106,11 +131,11 @@ export function updateMetaAndSchema(
         ratingValue: '4.8',
         reviewCount: '14250',
       },
-    },
-  ];
+    });
+  }
 
-  // 4. Breadcrumb Schema
-  if (article) {
+  // Breadcrumb Schema
+  if (isHome) {
     schemas.push({
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
@@ -119,30 +144,44 @@ export function updateMetaAndSchema(
           '@type': 'ListItem',
           position: 1,
           name: 'الرئيسية',
-          item: baseUrl,
+          item: `${BASE_URL}/`,
+        },
+      ],
+    });
+  } else if (article) {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'الرئيسية',
+          item: `${BASE_URL}/`,
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'مقالات COSRX Snail',
-          item: `${baseUrl}/cosrx-snail-96-review`,
+          name: 'دليل ومقالات COSRX',
+          item: `${BASE_URL}/cosrx-snail-96-review`,
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: article.h1Ar,
-          item: fullUrl,
+          item: canonicalUrl,
         },
       ],
     });
 
-    // 5. Article Schema
+    // Article Schema
     schemas.push({
       '@context': 'https://schema.org',
       '@type': 'Article',
       headline: article.h1Ar,
       description: article.metaDescAr,
-      mainEntityOfPage: fullUrl,
+      image: [ASSETS.cosrxProduct],
+      mainEntityOfPage: canonicalUrl,
       author: {
         '@type': 'Organization',
         name: 'COSRX Snail UAE Editorial Team',
@@ -152,14 +191,14 @@ export function updateMetaAndSchema(
         name: 'COSRX Snail UAE Guide',
         logo: {
           '@type': 'ImageObject',
-          url: `${baseUrl}/icon.png`,
+          url: `${BASE_URL}/icon.png`,
         },
       },
       datePublished: '2026-08-01',
-      dateModified: '2026-08-13',
+      dateModified: '2026-09-01',
     });
 
-    // 6. FAQPage Schema if article has FAQs
+    // FAQPage Schema if article has FAQs
     if (article.faqs && article.faqs.length > 0) {
       schemas.push({
         '@context': 'https://schema.org',
@@ -174,6 +213,25 @@ export function updateMetaAndSchema(
         })),
       });
     }
+  } else if (trustSlug && TRUST_PAGES[trustSlug]) {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'الرئيسية',
+          item: `${BASE_URL}/`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: TRUST_PAGES[trustSlug].titleAr,
+          item: canonicalUrl,
+        },
+      ],
+    });
   }
 
   // Inject Schemas into <head>
