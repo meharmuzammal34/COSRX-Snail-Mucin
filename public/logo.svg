@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" width="360" height="80" fill="none">
+  <defs>
+    <!-- Background Gradient for Icon Container -->
+    <linearGradient id="logoIconBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A2420"/>
+      <stop offset="100%" stop-color="#161311"/>
+    </linearGradient>
+
+    <!-- Golden Amber Gradient for Droplet & Mucin Spiral -->
+    <linearGradient id="logoGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="40%" stop-color="#F59E0B"/>
+      <stop offset="90%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#92400E"/>
+    </linearGradient>
+
+    <!-- Soft Ivory Glow -->
+    <linearGradient id="logoIvory" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBEB"/>
+      <stop offset="100%" stop-color="#FDE68A"/>
+    </linearGradient>
+
+    <filter id="logoShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Right-to-Left Layout (RTL for Arabic Context) -->
+  <!-- 1. Icon on Right (or Left for universal display) -->
+  <g transform="translate(10, 10)">
+    <!-- Icon Container Box -->
+    <rect x="0" y="0" width="60" height="60" rx="16" fill="url(#logoIconBg)" stroke="#D97706" stroke-width="1.2" stroke-opacity="0.6"/>
+    
+    <!-- Droplet & Snail Curve Group -->
+    <g filter="url(#logoShadow)">
+      <!-- Droplet Silhouette -->
+      <path 
+        d="M30 10 C30 10, 44 24, 44 35 C44 42.73 37.73 49 30 49 C22.27 49 16 42.73 16 35 C16 24, 30 10, 30 10 Z" 
+        fill="url(#logoGold)" 
+      />
+
+      <!-- Snail Shell Spiral / Organic Curve Line -->
+      <path 
+        d="M30 19 C24.5 25.5, 20.5 30.5, 20.5 35 C20.5 40.25 24.75 44.5 30 44.5 C35.25 44.5 39.5 40.25 39.5 35 C39.5 30.3 36 27 32.2 27 C28.8 27 26.2 29.5 26.2 33 C26.2 35.5 28.2 37.5 30.7 37.5 C32 37.5 33.2 36.6 33.2 35.2 C33.2 34 32 33 30.8 33" 
+        stroke="#181513" 
+        stroke-width="2.8" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        fill="none"
+      />
+
+      <!-- Core Dew Glow -->
+      <circle cx="30.8" cy="35.2" r="2" fill="url(#logoIvory)" />
+
+      <!-- Specular Highlight Curve -->
+      <path 
+        d="M30 14 C33 18, 40 27, 39 34" 
+        stroke="#FFFBEB" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-opacity="0.8"
+        fill="none"
+      />
+    </g>
+  </g>
+
+  <!-- 2. Typography Block (Clean Arabic + COSRX) -->
+  <g transform="translate(82, 0)">
+    <!-- Primary Brand Line: "دليل COSRX" -->
+    <text x="0" y="42" font-family="'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif" font-size="24" font-weight="800" fill="#FDFBF7" letter-spacing="-0.3">
+      دليل <tspan font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" fill="#FBBF24" letter-spacing="1">COSRX</tspan>
+    </text>
+
+    <!-- Authority Badge / Dot -->
+    <circle cx="205" cy="34" r="3" fill="#10B981" />
+    <rect x="215" y="24" width="56" height="18" rx="4" fill="#D97706" fill-opacity="0.15" stroke="#F59E0B" stroke-width="0.8" stroke-opacity="0.5"/>
+    <text x="243" y="36.5" font-family="'Cairo', sans-serif" font-size="9.5" font-weight="700" fill="#FCD34D" text-anchor="middle">
+      الإمارات
+    </text>
+
+    <!-- Subtitle: "دليل العناية بالبشرة" -->
+    <text x="0" y="60" font-family="'Cairo', 'Tajawal', sans-serif" font-size="12" font-weight="500" fill="#A8A29E" letter-spacing="0.2">
+      دليل العناية بالبشرة والجمال الكوري
+    </text>
+  </g>
+</svg>

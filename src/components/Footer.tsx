@@ -1,14 +1,16 @@
 import React from 'react';
 import { Language } from '../types';
-import { Droplets, ShieldCheck, ExternalLink, ArrowUp } from 'lucide-react';
+import { ShieldCheck, ExternalLink, ArrowUp, Sparkles } from 'lucide-react';
 import { CORE_PRODUCT_DATA } from '../data/cosrxData';
+import { BrandLogo } from './BrandLogo';
 
 interface FooterProps {
   onNavigate: (path: string) => void;
   lang: Language;
+  onOpenBrandKit?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate, lang }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate, lang, onOpenBrandKit }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -29,16 +31,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, lang }) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
           {/* Col 1: Brand & Purpose */}
           <div className="space-y-3 md:col-span-1">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-amber-600 flex items-center justify-center">
-                <Droplets className="w-4 h-4 text-white" />
-              </div>
-              <span className="font-bold text-lg text-white font-cairo">COSRX Snail UAE</span>
-            </div>
+            <BrandLogo lang={lang} variant="dark" size="sm" />
             <p className="text-stone-400 text-xs leading-relaxed">
               {lang === 'ar'
-                ? 'الدليل المعتمد لخلاصة الحلزون المتقدمة 96 كوسركس في دولة الإمارات العربية المتحدة. مراجعة شامله، نصائح حماية البشرة من جفاف التكييف، وعروض الشراء المباشر على أمازون الإمارات.'
-                : 'Official product landing guide for COSRX Advanced Snail 96 Essence in the UAE. Tested reviews, AC hydration tips, and verified deals on Amazon.ae.'}
+                ? 'الدليل المعتمد لخلاصة الحلزون المتقدمة 96 كوسركس في دولة الإمارات العربية المتحدة. مراجعة شاملة، نصائح حماية البشرة من جفاف التكييف، وعروض الشراء المباشر على أمازون الإمارات.'
+                : 'Independent product guide for COSRX Advanced Snail 96 Essence in the UAE. Tested reviews, AC hydration tips, and verified deals on Amazon.ae.'}
             </p>
             <div className="flex items-center gap-1.5 text-xs text-amber-400">
               <ShieldCheck className="w-4 h-4" />
@@ -183,12 +180,24 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, lang }) => {
               </button>
             </div>
 
-            <div className="pt-2">
+            {onOpenBrandKit && (
+              <div className="pt-2">
+                <button
+                  onClick={onOpenBrandKit}
+                  className="inline-flex items-center gap-1.5 bg-stone-900 hover:bg-stone-950 text-amber-300 border border-amber-500/40 hover:border-amber-400 font-bold px-3 py-1.5 rounded-lg text-xs transition w-full justify-center"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <span>{lang === 'ar' ? 'هوية الشعار والأيقونة (Brand Kit)' : 'Logo & Brand Identity Kit'}</span>
+                </button>
+              </div>
+            )}
+
+            <div className="pt-1">
               <a
                 href={CORE_PRODUCT_DATA.amazonUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold px-3 py-1.5 rounded-lg text-xs transition"
+                className="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold px-3 py-1.5 rounded-lg text-xs transition w-full justify-center"
               >
                 <span>{lang === 'ar' ? 'صفحة المنتج على أمازون الإمارات' : 'Amazon.ae Product Page'}</span>
                 <ExternalLink className="w-3 h-3" />

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Language, PageView } from '../types';
+import { BrandLogo } from './BrandLogo';
 import {
   ShoppingBag,
   Globe,
   Menu,
   X,
-  Droplets,
   ExternalLink,
 } from 'lucide-react';
 import { CORE_PRODUCT_DATA } from '../data/cosrxData';
@@ -79,28 +79,9 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Logo & Brand */}
           <div
             onClick={() => handleNavClick({ id: 'home', anchorId: 'hero' })}
-            className="flex items-center gap-2.5 cursor-pointer group"
+            className="cursor-pointer group py-1"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 p-0.5 shadow-md group-hover:scale-105 transition">
-              <div className="w-full h-full bg-stone-900 rounded-[10px] flex items-center justify-center">
-                <Droplets className="w-5 h-5 text-amber-400 group-hover:text-amber-300" />
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-bold text-base sm:text-lg tracking-tight text-amber-100 font-cairo">
-                  COSRX Snail UAE
-                </span>
-                <span className="bg-amber-500/20 border border-amber-400/30 text-amber-300 text-[10px] font-bold px-1.5 py-0.5 rounded">
-                  Official Guide
-                </span>
-              </div>
-              <p className="text-[11px] text-stone-400 hidden sm:block">
-                {lang === 'ar'
-                  ? 'دليل وشراء خلاصة الحلزون كوسركس الأصلي في الإمارات'
-                  : 'Official COSRX Snail Essence Product Guide'}
-              </p>
-            </div>
+            <BrandLogo lang={lang} variant="dark" size="md" />
           </div>
 
           {/* Desktop Navigation */}

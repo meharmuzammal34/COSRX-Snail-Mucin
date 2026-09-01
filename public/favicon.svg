@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <!-- Background Gradient: Warm luxury charcoal/espresso -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#26221F"/>
+      <stop offset="100%" stop-color="#141210"/>
+    </linearGradient>
+
+    <!-- Golden Amber Gradient for Droplet & Snail Curve -->
+    <linearGradient id="goldGrad" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="35%" stop-color="#F59E0B"/>
+      <stop offset="80%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+
+    <!-- Soft Inner Glow -->
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBEB" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.2"/>
+    </linearGradient>
+
+    <!-- Subtle Drop Shadow for depth -->
+    <filter id="subtleShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Squircle Base for Favicon Clarity & Contrast -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#bgGrad)" stroke="#D97706" stroke-width="1.5" stroke-opacity="0.5" />
+
+  <!-- Outer Droplet Contour with Snail Mucin Spiral integration -->
+  <g filter="url(#subtleShadow)">
+    <!-- Main Hydration Droplet Silhouette -->
+    <path 
+      d="M32 10 C32 10, 47 25, 47 37 C47 45.28 40.28 52 32 52 C23.72 52 17 45.28 17 37 C17 25, 32 10, 32 10 Z" 
+      fill="url(#goldGrad)" 
+    />
+
+    <!-- Snail Shell Spiral / Organic Mucin Curve Carveout -->
+    <!-- Elegantly wraps from the inner core outward in a natural Fibonacci curve -->
+    <path 
+      d="M32 20 C26 27, 21.5 32, 21.5 37 C21.5 42.79 26.21 47.5 32 47.5 C37.79 47.5 42.5 42.79 42.5 37 C42.5 31.8 38.6 28 34.5 28 C30.8 28 28 30.8 28 34.5 C28 37.3 30.2 39.5 33 39.5 C34.5 39.5 35.8 38.5 35.8 37 C35.8 35.5 34.5 34.5 33 34.5" 
+      stroke="#1E1B18" 
+      stroke-width="3" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+      fill="none"
+    />
+
+    <!-- Glowing Core Dew Droplet -->
+    <circle cx="33" cy="37" r="2.2" fill="url(#glowGrad)" />
+
+    <!-- Pure Ivory Light Reflection Highlight on Top Curve -->
+    <path 
+      d="M32 14 C35 18, 43 28, 42 36" 
+      stroke="#FFFBEB" 
+      stroke-width="1.8" 
+      stroke-linecap="round" 
+      stroke-opacity="0.75"
+      fill="none"
+    />
+  </g>
+</svg>

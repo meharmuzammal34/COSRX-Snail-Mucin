@@ -6,6 +6,7 @@ import { AmazonStickyBar } from './components/AmazonStickyBar';
 import { HomepageView } from './components/HomepageView';
 import { ClusterArticleView } from './components/ClusterArticleView';
 import { TrustPageView } from './components/TrustPageView';
+import { BrandKitModal } from './components/BrandKitModal';
 import { CLUSTER_ARTICLES } from './data/clusterArticlesData';
 import { TRUST_PAGES } from './data/clusterArticlesData';
 import { updateMetaAndSchema } from './utils/seo';
@@ -14,6 +15,7 @@ export default function App() {
   const [activePage, setActivePage] = useState<PageView>('home');
   const [lang, setLang] = useState<Language>('ar');
   const [currentPath, setCurrentPath] = useState<string>(() => window.location.pathname);
+  const [brandKitOpen, setBrandKitOpen] = useState(false);
 
   // Handle client-side navigation
   const handleNavigate = (path: string) => {
@@ -85,7 +87,18 @@ export default function App() {
       <AmazonStickyBar lang={lang} />
 
       {/* Footer */}
-      <Footer onNavigate={handleNavigate} lang={lang} />
+      <Footer
+        onNavigate={handleNavigate}
+        lang={lang}
+        onOpenBrandKit={() => setBrandKitOpen(true)}
+      />
+
+      {/* Brand Identity & Logo Kit Modal */}
+      <BrandKitModal
+        isOpen={brandKitOpen}
+        onClose={() => setBrandKitOpen(false)}
+        lang={lang}
+      />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Language } from '../types';
 import { TrustPageInfo } from '../data/clusterArticlesData';
+import { FormattedText } from './FormattedText';
 import { ChevronRight, ChevronLeft, ShieldCheck, ArrowRight, ArrowLeft } from 'lucide-react';
 
 interface TrustPageViewProps {
@@ -51,7 +52,7 @@ export const TrustPageView: React.FC<TrustPageViewProps> = ({
 
       {/* Body Content Box */}
       <div className="beauty-card rounded-3xl p-6 sm:p-10 border border-stone-200 bg-white text-stone-800 space-y-6 text-sm leading-relaxed whitespace-pre-line">
-        {page.contentAr}
+        <FormattedText text={page.contentAr} onNavigate={onNavigate} />
       </div>
 
       {/* Back Button */}

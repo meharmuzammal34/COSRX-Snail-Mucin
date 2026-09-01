@@ -3,6 +3,7 @@ import { Language } from '../types';
 import { ClusterArticle, CLUSTER_ARTICLES } from '../data/clusterArticlesData';
 import { CORE_PRODUCT_DATA } from '../data/cosrxData';
 import { ASSETS } from '../assets/images';
+import { FormattedText } from './FormattedText';
 import {
   ShoppingBag,
   Clock,
@@ -147,7 +148,9 @@ export const ClusterArticleView: React.FC<ClusterArticleViewProps> = ({
             <span className="font-extrabold text-amber-900 font-cairo block text-base">
               💡 النقاط الرئيسية في هذا الدليل:
             </span>
-            <p>{article.summaryAr}</p>
+            <p>
+              <FormattedText text={article.summaryAr} onNavigate={onNavigate} />
+            </p>
           </div>
 
           {/* Render Sections */}
@@ -166,7 +169,7 @@ export const ClusterArticleView: React.FC<ClusterArticleViewProps> = ({
               ) : null}
 
               <p className="text-stone-700 text-xs sm:text-sm leading-relaxed whitespace-pre-line">
-                {sec.contentAr}
+                <FormattedText text={sec.contentAr} onNavigate={onNavigate} />
               </p>
 
               {sec.listAr && (
@@ -174,7 +177,9 @@ export const ClusterArticleView: React.FC<ClusterArticleViewProps> = ({
                   {sec.listAr.map((item, lIdx) => (
                     <li key={lIdx} className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                      <span>{item}</span>
+                      <span>
+                        <FormattedText text={item} onNavigate={onNavigate} />
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -308,7 +313,7 @@ export const ClusterArticleView: React.FC<ClusterArticleViewProps> = ({
                       </button>
                       {isOpen && (
                         <div className="p-3.5 pt-0 text-stone-600 text-xs leading-relaxed border-t border-stone-100 bg-amber-50/30">
-                          {faq.aAr}
+                          <FormattedText text={faq.aAr} onNavigate={onNavigate} />
                         </div>
                       )}
                     </div>

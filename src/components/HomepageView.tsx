@@ -31,9 +31,10 @@ import {
 interface HomepageViewProps {
   setActivePage: (page: PageView) => void;
   lang: Language;
+  onNavigate?: (path: string) => void;
 }
 
-export const HomepageView: React.FC<HomepageViewProps> = ({ setActivePage, lang }) => {
+export const HomepageView: React.FC<HomepageViewProps> = ({ setActivePage, lang, onNavigate }) => {
   const [activeBeforeAfterTab, setActiveBeforeAfterTab] = useState<'day1' | 'day7' | 'day14' | 'day30'>('day14');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
@@ -896,6 +897,110 @@ export const HomepageView: React.FC<HomepageViewProps> = ({ setActivePage, lang 
             </p>
             <div className="text-xs font-bold text-stone-900">— خلود السويدي، الشارقة</div>
           </div>
+        </div>
+      </section>
+
+      {/* 9.5. Topical Content Hub & Cluster Guides Grid */}
+      <section className="beauty-card rounded-3xl p-6 sm:p-10 border border-stone-200 space-y-8">
+        <div className="text-center max-w-3xl mx-auto space-y-2">
+          <span className="text-xs font-bold text-amber-800 bg-amber-100 px-3 py-1 rounded-full uppercase tracking-wider">
+            {lang === 'ar' ? 'دليل ومقالات COSRX المتخصصة' : 'Topical Content & Buyer Guides'}
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold font-cairo text-stone-900">
+            {lang === 'ar'
+              ? 'موسوعة متكاملة للعناية بالبشرة بخلاصة الحلزون في الإمارات'
+              : 'Complete UAE Guides to COSRX Snail Skincare'}
+          </h2>
+          <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
+            {lang === 'ar'
+              ? 'أدلة إرشادية مستقلة ومراجعات مفصلة للأسعار، المكونات، المقارنات، وطرق الاستخدام الصحيحة للتغلب على جفاف التكييف.'
+              : 'Independent guides and in-depth reviews covering prices, ingredients, comparisons, and correct application routines.'}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {[
+            {
+              url: '/cosrx-snail-96-review',
+              titleAr: 'مراجعة COSRX Snail 96 في الإمارات',
+              descAr: 'تقييم شامل ومستقل للمنتج بعد اختباره في حرارة وتكييف الإمارات، ونكشف الفوائد والمكونات وهل يستحق الشراء.',
+              tag: 'المراجعة الشاملة',
+            },
+            {
+              url: '/cosrx-snail-96-price-uae',
+              titleAr: 'سعر COSRX Snail 96 في الإمارات',
+              descAr: 'مقارنة أسعار الشراء المباشر على أمازون الإمارات مقارنة بالصيدليات مع نصائح توفير الشحن المجاني.',
+              tag: 'تحديث الأسعار',
+            },
+            {
+              url: '/cosrx-snail-96-benefits',
+              titleAr: 'فوائد خلاصة الحلزون للبشرة',
+              descAr: 'تعرفي على الفوائد المائية العميقة وترميم حاجز البشرة المتضرر من هواء التكييف المستمر.',
+              tag: 'الفوائد والترطيب',
+            },
+            {
+              url: '/how-to-use-cosrx-snail-96',
+              titleAr: 'طريقة استخدام سيروم الحلزون خطوة بخطوة',
+              descAr: 'القواعد الذهبية لتطبيق السيروم على بشرة رطبة ودمجه مع التونر والمرطب للحصول على Glass Skin.',
+              tag: 'طريقة الاستخدام',
+            },
+            {
+              url: '/cosrx-snail-96-original-vs-fake',
+              titleAr: 'التمييز بين الأصلي والتقليد',
+              descAr: 'كيف تفرقين بين العبوة الأصلية والمقلدة؟ فحص كود الدفعة (Batch Code) والتأكد من البائع المعتمد.',
+              tag: 'حماية المشتري',
+            },
+            {
+              url: '/where-to-buy-cosrx-uae',
+              titleAr: 'أين تشتري COSRX الأصلي في الإمارات؟',
+              descAr: 'دليل الشراء الآمن من Amazon.ae مع ضمان سرعة التوصيل وأصالة المنتج 100% بأفضل سعر.',
+              tag: 'أماكن الشراء',
+            },
+          ].map((item, idx) => (
+            <div
+              key={idx}
+              className="bg-stone-50 hover:bg-amber-50/50 p-5 rounded-2xl border border-stone-200/80 hover:border-amber-400 transition space-y-3 flex flex-col justify-between"
+            >
+              <div className="space-y-2">
+                <span className="text-[10px] font-extrabold bg-amber-200/70 text-amber-950 px-2 py-0.5 rounded-full inline-block">
+                  {item.tag}
+                </span>
+                <h3 className="font-bold text-stone-900 text-sm font-cairo">
+                  <a
+                    href={item.url}
+                    onClick={(e) => {
+                      if (onNavigate) {
+                        e.preventDefault();
+                        onNavigate(item.url);
+                      }
+                    }}
+                    className="hover:text-amber-800 transition"
+                  >
+                    {item.titleAr}
+                  </a>
+                </h3>
+                <p className="text-stone-600 text-xs leading-relaxed">
+                  {item.descAr}
+                </p>
+              </div>
+
+              <div className="pt-2 border-t border-stone-200/60">
+                <a
+                  href={item.url}
+                  onClick={(e) => {
+                    if (onNavigate) {
+                      e.preventDefault();
+                      onNavigate(item.url);
+                    }
+                  }}
+                  className="text-amber-800 hover:text-amber-950 text-xs font-bold inline-flex items-center gap-1 group"
+                >
+                  <span>اقرأ الدليل الكامل</span>
+                  <span className="group-hover:translate-x-[-2px] transition-transform">←</span>
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
